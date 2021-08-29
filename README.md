@@ -15,11 +15,3 @@ We explore county-level panel data from the Census of Employment & Wages and use
 ### Software Utilized:
 
 Stata.
-
-### Results:
-
-We find that our rent-seeking proxies have a positive effect on income inequality in virtually all specifications. However, only some specifications show a statistically significant impact. 
-
-### Conclusion:
-
-N/A
