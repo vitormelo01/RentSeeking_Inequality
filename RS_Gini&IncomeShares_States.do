@@ -447,45 +447,6 @@ xtreg top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita 
 xtreg top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy i.year, fe vce(cluster area_fips)
  outreg2 using state_1%_lawyers, append word label keep(RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy) addtext(County FE, YES, Year FE, YES) title(Table 2) nocons
  
- 
-*-------------------------------------------------------------------------------
-* Sum of Descriptive Statistics 
-* ------------------------------------------------------------------------------
-ssc install asdoc
-
-sum gini_updated top10pct top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy if e(sample)
- asdoc sum gini_updated top10pct top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy if e(sample), label replace 
-
-
-*-------------------------------------------------------------------------------
-* Adding Updated Gini Data
-* ------------------------------------------------------------------------------
-
-clear
-insheet using "gini_updated.csv"
-rename v2 v2006
-rename v3 v2007
-rename v4 v2008
-rename v5 v2009
-rename v6 v2010
-rename v7 v2011
-rename v8 v2012
-rename v9 v2013
-rename v10 v2014
-rename v11 v2015
-rename v12 v2016
-rename v13 v2017
-rename v14 v2018
-
-reshape long v, i(state) j(year)
-drop gini
-rename v gini
-save gini_updated 
-
-*-------------------------------------------------------------------------------
-* Aanalysis on updated Gini at state level
-* ------------------------------------------------------------------------------
-
 
 
 *-------------------------------------------------------------------------------
@@ -493,7 +454,7 @@ save gini_updated
 * ------------------------------------------------------------------------------
 
 xtset id year, yearly 
-ssc install outreg2
+*ssc install outreg2
 
  * Regressions on Gini Coefficient 
 xtreg gini_updated RS_law RS_LocalGovernment i.year, fe vce(cluster area_fips)
@@ -509,3 +470,12 @@ xtreg gini_updated RS_law RS_LocalGovernment Engineering_Percentage pop gdpperca
 xtreg gini_updated RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy i.year, fe vce(cluster area_fips)
  outreg2 using state_gini_lawyers, append word label keep(RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy) addtext(County FE, YES, Year FE, YES) title(Table 2) nocons
  
+ 
+ *-------------------------------------------------------------------------------
+* Sum of Descriptive Statistics 
+* ------------------------------------------------------------------------------
+*ssc install asdoc
+
+sum gini_updated top10pct top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy if e(sample)
+ asdoc sum gini_updated top10pct top1pct RS_law RS_LocalGovernment Engineering_Percentage pop gdppercapita unemp_rate prop_bach_degree_bsy if e(sample), label replace 
+
